@@ -1,0 +1,9 @@
+name: Duckcraft CoordinateManager
+version: '${project.version}'
+main: dev.forslund.duckcraftcoordinatemanager.DuckcraftCoordinateManager
+api-version: 1.18
+prefix: DuckcraftCM
+softdepend: [ Duckcraft-Core ]
+authors: [ Duckkyy ]
+description: Coordinate Manager with Chest GUI for saving coordinates.
+website: forslund.dev
