@@ -4,5 +4,12 @@ main: dev.forslund.duckcraftcoordinatemanager.DuckcraftCoordinateManager
 api-version: 1.18
 prefix: DuckcraftCM
 authors: [ Duckkyy ]
-description: Coordinate Manager wi  th Chest GUI for saving coordinates.
+description: Coordinate Manager with Chest GUI for saving coordinates.
 website: forslund.dev
+commands:
+  coordinatemanager:
+    description: Open coordinate manager. You can also right-click any compass to open the menu.
+    usage: /coordinatemanager
+    permission: duckcraftcm.admin
+    aliases: [ cm ]
+
