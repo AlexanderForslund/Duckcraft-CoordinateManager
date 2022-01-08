@@ -1,0 +1,2 @@
+enable-compass-rightclick: true # Right-clicking a compass while this is enabled will access /cm
+max-locations: 20 # 0 - 51

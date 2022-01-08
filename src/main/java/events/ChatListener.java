@@ -3,6 +3,7 @@ package events;
 import dev.forslund.duckcraftcoordinatemanager.DuckcraftCoordinateManager;
 import dev.forslund.duckcraftcoordinatemanager.SaveCoords;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -25,6 +26,31 @@ public class ChatListener implements Listener {
         if (players.contains(e.getPlayer().getUniqueId().toString())) {
             e.setCancelled(true);
             players.remove(e.getPlayer().getUniqueId().toString());
+
+            if (e.getMessage().equalsIgnoreCase("cancel")) {
+                e.getPlayer().sendMessage(ChatColor.GRAY + "Canceled.");
+                return;
+            }
+
+            if (e.getMessage().equals("last_death")) {
+                e.getPlayer().sendMessage(ChatColor.RED + "That location name is reserved.");
+                return;
+            }
+
+            if (data.getData().isConfigurationSection("players." + e.getPlayer().getUniqueId())) {
+                int size = 0;
+                ConfigurationSection cs = data.getData().getConfigurationSection("players." + e.getPlayer().getUniqueId());
+                if (!cs.getKeys(false).isEmpty()) {
+                    for (String str : cs.getKeys(false)) {
+                        size++;
+                    }
+                }
+
+                if (size >= plugin.getConfig().getInt("max-locations")) {
+                    e.getPlayer().sendMessage(ChatColor.RED + "Your location list is full.");
+                    return;
+                }
+            }
 
             if (data.getData().isString("players." + e.getPlayer().getUniqueId().toString() + "." + e.getMessage())) {
                 e.getPlayer().sendMessage(ChatColor.RED + "A location with that name already exists!");

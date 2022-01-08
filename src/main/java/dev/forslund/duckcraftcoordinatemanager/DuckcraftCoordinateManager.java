@@ -2,6 +2,7 @@ package dev.forslund.duckcraftcoordinatemanager;
 
 import commands.CMDGui;
 import events.ChatListener;
+import events.RightClickListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -20,9 +21,10 @@ public final class DuckcraftCoordinateManager extends JavaPlugin {
         // Events
         getServer().getPluginManager().registerEvents(new MenuHandler(this, data), this);
         getServer().getPluginManager().registerEvents(new ChatListener(this, data), this);
+        getServer().getPluginManager().registerEvents(new RightClickListener(this), this);
 
         // Cmds
-        getCommand("coordinatemanager").setExecutor(new CMDGui());
+        getCommand("coordinatemanager").setExecutor(new CMDGui(this, data));
     }
 
     @Override

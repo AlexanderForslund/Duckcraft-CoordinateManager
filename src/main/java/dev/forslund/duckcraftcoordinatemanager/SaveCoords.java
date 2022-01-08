@@ -46,7 +46,17 @@ public class SaveCoords {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-
+    public void reloadDataFile() {
+        try {
+            data.load(dataFile);
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

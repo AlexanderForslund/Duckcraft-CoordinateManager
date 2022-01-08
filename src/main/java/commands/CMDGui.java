@@ -1,6 +1,9 @@
 package commands;
 
+import dev.forslund.duckcraftcoordinatemanager.DuckcraftCoordinateManager;
+import dev.forslund.duckcraftcoordinatemanager.SaveCoords;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,9 +17,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CMDGui implements CommandExecutor {
+    private DuckcraftCoordinateManager plugin;
+    private SaveCoords data;
+
+    public CMDGui(DuckcraftCoordinateManager plugin, SaveCoords data) {
+        this.plugin = plugin;
+        this.data = data;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+            sender.sendMessage(ChatColor.GRAY + "Reloading config...");
+            plugin.reloadConfig();
+            data.reloadDataFile();
+            sender.sendMessage(ChatColor.GREEN + "Config has been reloaded.");
+            return true;
+        }
+
         if (sender instanceof Player) {
             Player p = (Player) sender;
 
@@ -43,7 +61,6 @@ public class CMDGui implements CommandExecutor {
 
             mainGUI.addItem(saveCurrentLocationItem);
             mainGUI.addItem(listSavedLocationsItem);
-
 
             p.openInventory(mainGUI);
         }
