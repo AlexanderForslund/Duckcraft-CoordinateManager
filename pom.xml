@@ -6,7 +6,7 @@
 
     <groupId>dev.forslund</groupId>
     <artifactId>Duckcraft-CoordinateManager</artifactId>
-    <version>0.2</version>
+    <version>1</version>
     <packaging>jar</packaging>
 
     <name>Duckcraft CoordinateManager</name>

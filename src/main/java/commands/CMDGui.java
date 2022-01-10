@@ -40,6 +40,8 @@ public class CMDGui implements CommandExecutor {
 
             Inventory mainGUI = Bukkit.createInventory(null, 9, "Coordinate Manager");
 
+
+
             // Save location
             ItemStack saveCurrentLocationItem = new ItemStack(Material.LILY_PAD, 1);
             ItemMeta meta = saveCurrentLocationItem.getItemMeta();
@@ -55,12 +57,30 @@ public class CMDGui implements CommandExecutor {
             meta.setDisplayName("§bList saved locations");
             List<String> listSavedLocationsLore = new ArrayList<>();
             listSavedLocationsLore.add("§7Lists all saved locations.");
-            listSavedLocationsLore.add("§7Maximum 15 locations can be saved.");
+            listSavedLocationsLore.add("§7Maximum " + plugin.getConfig().getInt("max-locations") + " locations can be saved.");
             meta.setLore(listSavedLocationsLore);
             listSavedLocationsItem.setItemMeta(meta);
 
-            mainGUI.addItem(saveCurrentLocationItem);
-            mainGUI.addItem(listSavedLocationsItem);
+            mainGUI.setItem(3, saveCurrentLocationItem);
+            mainGUI.setItem(5, listSavedLocationsItem);
+
+            // 9 is chest size
+            for (int i = 0; i < 9; i++) {
+                ItemStack fillerItem = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
+                ItemMeta fillerMeta = fillerItem.getItemMeta();
+                fillerMeta.setDisplayName(" ");
+                List<String> fillerLore = new ArrayList<>();
+                fillerLore.add("");
+                fillerMeta.setLore(fillerLore);
+                fillerItem.setItemMeta(fillerMeta);
+
+                if (i == 3 || i == 5) {
+                    // Skip if going over slot with item
+                    continue;
+                }
+
+                mainGUI.setItem(i, fillerItem);
+            }
 
             p.openInventory(mainGUI);
         }
